@@ -1,3 +1,44 @@
+# The Female Way
+
+White-label LibreChat fork for **Tara Hanke's coaching program "The Female Way"** —
+4 specialized AI agents (Nische & Angebot, Sales, Tara Wiki, Webseiten-Feedback)
+plus ICP/Leads tabs, bonus-code registration, and Tara-branded UI.
+
+## Local dev setup — three commands
+
+```bash
+# 1. One-shot setup: secrets, Mongo container, deps, builds, dev-yaml
+npm run dev:setup
+
+# 2. Set OPENAI_API_KEY (or ANTHROPIC_API_KEY / GOOGLE_KEY) in .env
+#    Just one is enough.
+
+# 3. Start everything — tfw-services, backend, frontend, in one terminal
+npm run dev:start
+```
+
+Open <http://localhost:3090>, register a user, then in another terminal:
+
+```bash
+npm run dev:promote-admin   # promote first user to ADMIN
+npm run seed:agents         # create the 4 agents + auto-wire REST actions
+```
+
+Reload — landing now shows the four tiles, sidebar shows Mein Profil + Assistenten,
+`/admin/bonus-codes` is reachable, ICP and Lead CRUD work end-to-end.
+
+For the full picture (architecture diagram, env vars, MCP servers, demo walkthrough):
+see [DEPLOYMENT.md](./DEPLOYMENT.md).
+For everything still on the punch list before launch: see [OPEN-DETAILS.md](./OPEN-DETAILS.md).
+
+---
+
+## Upstream LibreChat
+
+Everything below is the unmodified upstream LibreChat README — kept verbatim
+so future rebases stay clean. TFW-specific changes always carry the `[fork-custom]`
+commit prefix.
+
 <p align="center">
   <a href="https://librechat.ai">
     <img src="client/public/assets/logo.svg" height="256">
