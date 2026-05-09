@@ -14,6 +14,7 @@ const responses = require('./responses');
 const openai = require('./openai');
 const { v1 } = require('./v1');
 const chat = require('./chat');
+const generateDocument = require('./generateDocument');
 
 const { LIMIT_MESSAGE_IP, LIMIT_MESSAGE_USER } = process.env ?? {};
 
@@ -41,6 +42,8 @@ router.use('/v1', openai);
 router.use(requireJwtAuth);
 router.use(checkBan);
 router.use(uaParser);
+
+router.use('/generate-document', generateDocument);
 
 router.use('/', v1);
 
