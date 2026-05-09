@@ -1,11 +1,14 @@
 const path = require('path');
 const fs = require('fs');
+const mongoose = require('mongoose');
 const { v4: uuidv4 } = require('uuid');
+const { AccessRoleIds, ResourceType, PrincipalType } = require('librechat-data-provider');
 
 require('module-alias')({ base: path.resolve(__dirname, '..', 'api') });
 
 const connect = require('./connect');
 const { Agent, User, Action } = require('~/db/models');
+const { grantPermission } = require('~/server/services/PermissionService');
 
 const DEFAULT_MODEL = process.env.TFW_DEFAULT_MODEL || 'claude-sonnet-4-6';
 const DEFAULT_PROVIDER = process.env.TFW_DEFAULT_PROVIDER || 'anthropic';
@@ -216,6 +219,44 @@ const agentDefs = [
   },
 ];
 
+const GLOBAL_PROJECT_NAME = 'instance';
+
+/**
+ * Adds an agent to the global project and grants PUBLIC viewer + author owner ACL.
+ * Uses $addToSet (projects collection) and upsert-based grantPermission — fully idempotent.
+ * @param {import('mongoose')} mongoose
+ * @param {{ _id: import('mongoose').Types.ObjectId, id: string, author: import('mongoose').Types.ObjectId }} agent
+ */
+async function grantGlobalPermissions(mongoose, agent) {
+  const db = mongoose.connection.db;
+
+  await db
+    .collection('projects')
+    .updateOne(
+      { name: GLOBAL_PROJECT_NAME },
+      { $addToSet: { agentIds: agent.id } },
+      { upsert: true },
+    );
+
+  await grantPermission({
+    principalType: PrincipalType.USER,
+    principalId: agent.author,
+    resourceType: ResourceType.AGENT,
+    resourceId: agent._id,
+    accessRoleId: AccessRoleIds.AGENT_OWNER,
+    grantedBy: agent.author,
+  });
+
+  await grantPermission({
+    principalType: PrincipalType.PUBLIC,
+    principalId: null,
+    resourceType: ResourceType.AGENT,
+    resourceId: agent._id,
+    accessRoleId: AccessRoleIds.AGENT_VIEWER,
+    grantedBy: agent.author,
+  });
+}
+
 /**
  * Derives the domain from TFW_SERVICES_BASE_URL (required by Action.metadata.domain).
  * Example: "http://localhost:3001" → "localhost"
@@ -316,6 +357,13 @@ async function seedAgents() {
       console.log(`created: ${agentDef.name}`);
       created++;
       agentId = newAgent.id;
+
+      try {
+        await grantGlobalPermissions(mongoose, newAgent);
+        console.log(`  → global ACL granted: ${agentDef.name}`);
+      } catch (err) {
+        console.error(`  ! Failed to grant global ACL for ${agentDef.name}: ${err.message}`);
+      }
     }
 
     // Wire REST action if this agent has a spec
