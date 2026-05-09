@@ -7,6 +7,7 @@ const adminGrants = require('./admin/grants');
 const adminGroups = require('./admin/groups');
 const adminRoles = require('./admin/roles');
 const adminUsers = require('./admin/users');
+const adminBonusCodes = require('./admin/bonusCodes');
 const endpoints = require('./endpoints');
 const staticRoute = require('./static');
 const messages = require('./messages');
@@ -42,6 +43,7 @@ module.exports = {
   adminGroups,
   adminRoles,
   adminUsers,
+  adminBonusCodes,
   keys,
   apiKeys,
   user,

@@ -33,7 +33,12 @@ const {
   generateToken,
   deleteUserById,
   generateRefreshToken,
+  consumeBonusCode,
+  setUserBonusActivated,
 } = require('~/models');
+const {
+  validateAndConsumeBonusCode,
+} = require('@librechat/api');
 const { registerSchema } = require('~/strategies/validators');
 const { getAppConfig } = require('~/server/services/Config');
 const { sendEmail } = require('~/server/utils');
@@ -235,6 +240,31 @@ const registerUser = async (user, additionalData = {}) => {
 
     const newUser = await createUser(newUserData, appConfig.balance, disableTTL, true);
     newUserId = newUser._id;
+
+    const bonusToken = user.token;
+    if (bonusToken) {
+      try {
+        const { activated } = await validateAndConsumeBonusCode(bonusToken, newUserId, {
+          consumeBonusCode,
+          setUserBonusActivated,
+          insertBonusCodes: async () => [],
+          findChargesAggregated: async () => [],
+          findChargeDetails: async () => [],
+        });
+        if (activated) {
+          const mongoose = require('mongoose');
+          const Balance = mongoose.models.Balance;
+          await Balance.findOneAndUpdate(
+            { user: newUserId },
+            { $inc: { tokenCredits: 5000000 } },
+            { upsert: true, new: true },
+          ).lean();
+        }
+      } catch (bonusErr) {
+        logger.warn('[registerUser] Bonus code processing failed (non-fatal):', bonusErr);
+      }
+    }
+
     if (emailEnabled && !newUser.emailVerified) {
       await sendVerificationEmail({
         _id: newUserId,

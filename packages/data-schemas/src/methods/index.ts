@@ -62,12 +62,21 @@ import {
 import { createAgentMethods, type AgentMethods, type AgentDeps } from './agent';
 /* Config */
 import { createConfigMethods, type ConfigMethods } from './config';
+/* Bonus Codes */
+import {
+  createBonusCodeMethods,
+  type BonusCodeMethods,
+  type BonusCodeInsert,
+  type ChargeAggregate,
+  type BonusCodeWithUser,
+} from './bonusCode';
 
 export { RoleConflictError, DEFAULT_REFRESH_TOKEN_EXPIRY, DEFAULT_SESSION_EXPIRY };
 export { tokenValues, cacheTokenValues, premiumTokenValues, defaultRate };
 export { permissionBitSupersets };
 
 export type AllMethods = UserMethods &
+  BonusCodeMethods &
   SessionMethods &
   TokenMethods &
   RoleMethods &
@@ -228,6 +237,8 @@ export function createMethods(
     ...agentMethods,
     /* Config */
     ...createConfigMethods(mongoose),
+    /* Bonus Codes */
+    ...createBonusCodeMethods(mongoose),
   };
 }
 
@@ -273,4 +284,8 @@ export type {
   ValidationIssue,
   AgentMethods,
   ConfigMethods,
+  BonusCodeMethods,
+  BonusCodeInsert,
+  ChargeAggregate,
+  BonusCodeWithUser,
 };
