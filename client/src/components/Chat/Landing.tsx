@@ -283,7 +283,7 @@ export default function Landing(_props: { centerFormOnLanding: boolean }) {
 
   return (
     <div
-      className={`relative flex w-full transform-gpu flex-col items-center pb-6 pt-4 transition-all duration-200 ${getDynamicMargin}`}
+      className="relative flex w-full transform-gpu flex-col items-center pb-2 pt-2 transition-all duration-200"
     >
       <div
         ref={contentRef}
