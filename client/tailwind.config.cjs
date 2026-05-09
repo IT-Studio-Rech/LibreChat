@@ -79,8 +79,8 @@ module.exports = {
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-out forwards',
-        'brand-fade-in':  'fadeIn 300ms ease-out',
-        'brand-slide-in': 'slideInUp 500ms cubic-bezier(0.4, 0, 0.2, 1)',
+        'brand-fade-in':  'fadeIn 300ms ease-out forwards',
+        'brand-slide-in': 'slideInUp 500ms cubic-bezier(0.4, 0, 0.2, 1) forwards',
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         'slide-in-right': 'slide-in-right 300ms cubic-bezier(0.25, 0.1, 0.25, 1)',
