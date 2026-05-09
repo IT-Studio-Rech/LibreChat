@@ -21,6 +21,20 @@ function step(n, total, msg) {
   console.log(`\n\x1b[36m[${n}/${total}]\x1b[0m \x1b[1m${msg}\x1b[0m`);
 }
 
+function promptYesNo(question, defaultYes = true) {
+  const hint = defaultYes ? '[Y/n]' : '[y/N]';
+  process.stdout.write(`\n  \x1b[33m?\x1b[0m ${question} ${hint} `);
+  try {
+    const buf = Buffer.alloc(64);
+    const bytes = fs.readSync(0, buf, 0, 64);
+    const answer = buf.toString('utf8', 0, bytes).trim().toLowerCase();
+    if (!answer) return defaultYes;
+    return answer === 'y' || answer === 'yes' || answer === 'j' || answer === 'ja';
+  } catch {
+    return defaultYes;
+  }
+}
+
 function ok(msg) {
   console.log(`  \x1b[32m✓\x1b[0m ${msg}`);
 }
@@ -246,12 +260,30 @@ function installDependencies() {
     shell: process.platform === 'win32',
   });
   if (rootInstall.status !== 0) {
-    fail(
-      'smart-reinstall failed in root.\n' +
-        '  Check the error above and retry. To force a clean rebuild:\n' +
-        '  npm run smart-reinstall -- --force',
-    );
-    process.exit(1);
+    warn('smart-reinstall failed — usually means a stale node_modules from a previous run.');
+    const retry = promptYesNo('Retry with --force (clean rebuild from scratch)?', true);
+    if (!retry) {
+      fail(
+        'Aborted by user.\n' +
+          '  When ready, run manually:\n' +
+          '  npm run smart-reinstall -- --force',
+      );
+      process.exit(1);
+    }
+    ok('Retrying with --force...');
+    const retryRun = spawnSync('npm', ['run', 'smart-reinstall', '--', '--force'], {
+      cwd: ROOT,
+      stdio: 'inherit',
+      shell: process.platform === 'win32',
+    });
+    if (retryRun.status !== 0) {
+      fail(
+        'smart-reinstall --force also failed.\n' +
+          '  Try manually: rm -rf node_modules packages/*/node_modules client/node_modules api/node_modules\n' +
+          '  Then re-run: npm run dev:setup',
+      );
+      process.exit(1);
+    }
   }
   ok('Root dependencies installed and packages built');
 
