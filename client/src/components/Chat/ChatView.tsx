@@ -84,25 +84,27 @@ function ChatView({ index = 0 }: { index?: number }) {
             <div className="relative flex h-full w-full flex-col">
               <Header />
               <>
-                <div
-                  className={cn(
-                    'flex flex-col',
-                    isLandingPage
-                      ? 'min-h-0 flex-1 items-center justify-end overflow-y-auto sm:[justify-content:safe_center]'
-                      : 'h-full overflow-y-auto',
-                  )}
-                >
-                  {content}
-                  <div
-                    className={cn(
-                      'w-full',
-                      isLandingPage && 'max-w-3xl transition-all duration-200 xl:max-w-4xl',
-                    )}
-                  >
-                    <ChatForm index={index} />
-                    {isLandingPage ? <ConversationStarters /> : <Footer />}
+                {isLandingPage ? (
+                  <div className="flex min-h-0 flex-1 flex-col">
+                    {/* TFW: scrollable landing area — greeting + tiles */}
+                    <div className="flex min-h-0 flex-1 flex-col items-center overflow-y-auto">
+                      <div className="my-auto flex w-full flex-col items-center">{content}</div>
+                    </div>
+                    {/* TFW: chat input pinned to bottom, never scrolls away */}
+                    <div className="mx-auto w-full max-w-3xl flex-shrink-0 transition-all duration-200 xl:max-w-4xl">
+                      <ChatForm index={index} />
+                      <ConversationStarters />
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  <div className="flex h-full flex-col overflow-y-auto">
+                    {content}
+                    <div className="w-full">
+                      <ChatForm index={index} />
+                      <Footer />
+                    </div>
+                  </div>
+                )}
                 {isLandingPage && <Footer />}
               </>
             </div>

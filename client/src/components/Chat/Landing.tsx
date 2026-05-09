@@ -118,7 +118,7 @@ function getTextSizeClass(text: string | undefined | null) {
   return 'text-lg sm:text-md';
 }
 
-export default function Landing({ centerFormOnLanding }: { centerFormOnLanding: boolean }) {
+export default function Landing(_props: { centerFormOnLanding: boolean }) {
   const { conversation } = useChatContext();
   const agentsMap = useAgentsMapContext();
   const assistantMap = useAssistantsMapContext();
@@ -262,10 +262,10 @@ export default function Landing({ centerFormOnLanding }: { centerFormOnLanding: 
     };
   }, [localize]);
 
-  // TFW: when promoted tiles are visible, never collapse the landing container —
-  // the LibreChat default centerFormOnLanding behaviour pins max-h to 0 on sm+ so
-  // the input chip floats centered, but that throws our tile grid off-screen.
-  const collapseToInput = centerFormOnLanding && !showPromotedTiles;
+  // TFW: ChatView now wraps Landing in a my-auto scroll container with the chat
+  // input pinned outside that scroll, so we no longer need the LibreChat
+  // centerFormOnLanding max-h-0 collapse trick. Centering is handled by the
+  // parent wrapper.
 
   // TFW: stage the reveal — LibreChat default greeting plays its SplitText animation
   // first (about 1.7s for the typical greeting), then fades out and the TFW tile
@@ -283,7 +283,7 @@ export default function Landing({ centerFormOnLanding }: { centerFormOnLanding: 
 
   return (
     <div
-      className={`relative flex h-full transform-gpu flex-col items-center justify-center pb-8 transition-all duration-200 ${collapseToInput ? 'max-h-full sm:max-h-0' : 'max-h-full'} ${getDynamicMargin}`}
+      className={`relative flex w-full transform-gpu flex-col items-center pb-8 pt-6 transition-all duration-200 ${getDynamicMargin}`}
     >
       <div
         ref={contentRef}
