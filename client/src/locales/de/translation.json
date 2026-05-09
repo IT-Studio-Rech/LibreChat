@@ -1594,5 +1594,10 @@
   "com_tfw_vaultupload_success": "Hochgeladen — Pipeline wurde automatisch gestartet (kann einige Minuten dauern)",
   "com_tfw_vaultupload_error": "Upload fehlgeschlagen. Bitte erneut versuchen.",
   "com_tfw_vaultupload_no_file": "Bitte zuerst eine Datei auswählen.",
-  "com_tfw_vaultupload_selected_file": "Ausgewählt: {{filename}}"
+  "com_tfw_vaultupload_selected_file": "Ausgewählt: {{filename}}",
+  "com_tfw_landing_greeting": "Hey {{name}}! Womit kann ich dir heute helfen?",
+  "com_tfw_landing_subtitle": "Wähle eines der Module oder schreib direkt deine Frage unten.",
+  "com_tfw_landing_tile_aria": "Konversation mit {{name}} starten",
+  "com_tfw_landing_tile_cta": "Loslegen",
+  "com_tfw_landing_loading": "Lade Assistenten ..."
 }

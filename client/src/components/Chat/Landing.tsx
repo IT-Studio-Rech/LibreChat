@@ -41,7 +41,14 @@ function getAgentIcon(name: string | null): React.ComponentType<{ className?: st
   return Sparkles;
 }
 
-const staggerDelays = ['[animation-delay:0ms]', '[animation-delay:100ms]', '[animation-delay:200ms]', '[animation-delay:300ms]'];
+const staggerDelays = [
+  '[animation-delay:0ms]',
+  '[animation-delay:100ms]',
+  '[animation-delay:200ms]',
+  '[animation-delay:300ms]',
+];
+
+const GREETING_NAME_SENTINEL = '\x00NAME\x00';
 
 function PromotedTile({
   agent,
@@ -62,35 +69,35 @@ function PromotedTile({
   return (
     <button
       type="button"
-      className={`group flex cursor-pointer flex-col items-start gap-3 rounded-brand-lg border-2 border-border-light bg-white p-6 text-left shadow-brand-sm transition-all duration-200 hover:scale-[1.02] hover:border-brand-rose hover:shadow-brand-md animate-brand-slide-in opacity-0 motion-reduce:animate-none motion-reduce:opacity-100 ${delay}`}
+      className={`group relative flex cursor-pointer flex-col p-6 rounded-brand-lg border border-border-light bg-white text-left transition-all duration-200 hover:-translate-y-0.5 hover:shadow-brand-md hover:border-brand-rose animate-brand-slide-in opacity-0 motion-reduce:animate-none motion-reduce:opacity-100 ${delay}`}
       aria-label={ariaLabel}
       onClick={() => onSelect(agent.id)}
     >
-      <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-brand-md bg-brand-rose-cream text-brand-rose-dark transition-colors duration-200 group-hover:bg-brand-rose group-hover:text-white">
-        <Icon className="h-[22px] w-[22px] stroke-[1.75]" />
+      <div className="h-11 w-11 rounded-[12px] bg-brand-rose-cream flex items-center justify-center mb-4 transition-colors group-hover:bg-brand-rose">
+        <Icon className="h-5 w-5 text-brand-rose-dark group-hover:text-white transition-colors stroke-[1.75]" />
       </div>
-      <div className="font-serif text-xl font-semibold leading-snug text-text-headline">
+      <h3 className="font-serif text-xl font-semibold text-text-headline mb-2">
         {agent.name}
-      </div>
+      </h3>
       {agent.description != null && agent.description !== '' && (
-        <div className="flex-1 font-sans text-[13.5px] leading-relaxed text-text-body">
+        <p className="font-sans text-[13.5px] text-text-body leading-relaxed mb-4 line-clamp-3">
           {agent.description}
-        </div>
+        </p>
       )}
-      <div className="mt-auto flex items-center gap-1 font-ui text-[13px] font-semibold text-brand-rose-dark transition-[gap] duration-200 group-hover:gap-2">
+      <span className="mt-auto flex items-center gap-1 group-hover:gap-2 transition-all font-ui text-[13px] font-semibold text-brand-rose-dark">
         {ctaLabel}
-        <ArrowRight className="h-3.5 w-3.5" />
-      </div>
+        <ArrowRight className="h-4 w-4" strokeWidth={2} />
+      </span>
     </button>
   );
 }
 
 function PromotedTileSkeleton() {
   return (
-    <div className="flex flex-col items-start gap-3 rounded-brand-lg border-2 border-border-light bg-white p-6 shadow-brand-sm">
-      <div className="h-11 w-11 animate-pulse rounded-brand-md bg-cream" />
-      <div className="h-5 w-3/4 animate-pulse rounded-brand-sm bg-cream" />
-      <div className="h-12 w-full animate-pulse rounded-brand-sm bg-cream" />
+    <div className="flex flex-col p-6 rounded-brand-lg border border-border-light bg-white">
+      <div className="h-11 w-11 animate-pulse rounded-[12px] bg-cream-light mb-4" />
+      <div className="h-5 w-3/4 animate-pulse rounded-brand-sm bg-cream-light mb-2" />
+      <div className="h-12 w-full animate-pulse rounded-brand-sm bg-cream-light" />
     </div>
   );
 }
@@ -242,6 +249,19 @@ export default function Landing({ centerFormOnLanding }: { centerFormOnLanding: 
       ? getGreeting()
       : getGreeting() + (user?.name ? ', ' + user.name : '');
 
+  const userName = user?.name ?? '';
+  const showPromotedTiles = promotedLoading || promotedAgents.length > 0;
+
+  const greetingParts = useMemo(() => {
+    const rendered = localize('com_tfw_landing_greeting', { name: GREETING_NAME_SENTINEL });
+    const idx = rendered.indexOf(GREETING_NAME_SENTINEL);
+    if (idx === -1) return { before: rendered, after: '' };
+    return {
+      before: rendered.slice(0, idx),
+      after: rendered.slice(idx + GREETING_NAME_SENTINEL.length),
+    };
+  }, [localize]);
+
   return (
     <div
       className={`flex h-full transform-gpu flex-col items-center justify-center pb-16 transition-all duration-200 ${centerFormOnLanding ? 'max-h-full sm:max-h-0' : 'max-h-full'} ${getDynamicMargin}`}
@@ -309,13 +329,23 @@ export default function Landing({ centerFormOnLanding }: { centerFormOnLanding: 
           </div>
         )}
       </div>
-      {(promotedLoading || promotedAgents.length > 0) && (
-        <div className="mt-10 w-full max-w-3xl px-2">
+      {showPromotedTiles && (
+        <div className="mt-6 w-full max-w-3xl px-2">
+          <div className="mx-auto mb-12 max-w-[580px] text-center">
+            <h2 className="font-serif text-4xl font-semibold text-text-headline mb-3 leading-tight">
+              {greetingParts.before}
+              <span className="italic text-brand-rose-dark">{userName || 'dir'}</span>
+              {greetingParts.after}
+            </h2>
+            <p className="font-sans text-base text-text-muted">
+              {localize('com_tfw_landing_subtitle')}
+            </p>
+          </div>
           {promotedLoading ? (
             <div
               role="status"
               aria-label={localize('com_tfw_landing_loading')}
-              className="grid grid-cols-1 gap-6 md:grid-cols-2"
+              className="grid grid-cols-1 gap-4 md:grid-cols-2"
             >
               <PromotedTileSkeleton />
               <PromotedTileSkeleton />
@@ -323,14 +353,14 @@ export default function Landing({ centerFormOnLanding }: { centerFormOnLanding: 
               <PromotedTileSkeleton />
             </div>
           ) : (
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               {promotedAgents.map((agent, i) => (
                 <PromotedTile
                   key={agent.id}
                   agent={agent}
                   index={i}
                   onSelect={handleTileSelect}
-                  ariaLabel={localize('com_tfw_landing_tile_aria').replace('{{name}}', agent.name ?? '')}
+                  ariaLabel={localize('com_tfw_landing_tile_aria', { name: agent.name ?? '' })}
                   ctaLabel={localize('com_tfw_landing_tile_cta')}
                 />
               ))}
