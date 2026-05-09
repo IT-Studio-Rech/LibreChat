@@ -69,7 +69,7 @@ function PromotedTile({
   return (
     <button
       type="button"
-      className={`group relative flex cursor-pointer flex-col p-5 rounded-brand-lg border border-border-light bg-white text-left transition-all duration-200 hover:-translate-y-0.5 hover:shadow-brand-md hover:border-brand-rose animate-brand-slide-in opacity-0 motion-reduce:animate-none motion-reduce:opacity-100 ${delay}`}
+      className={`group relative flex min-h-[210px] cursor-pointer flex-col p-5 rounded-brand-lg border border-border-light bg-white text-left transition-all duration-200 hover:-translate-y-0.5 hover:shadow-brand-md hover:border-brand-rose animate-brand-slide-in opacity-0 motion-reduce:animate-none motion-reduce:opacity-100 ${delay}`}
       aria-label={ariaLabel}
       onClick={() => onSelect(agent.id)}
     >
@@ -94,10 +94,11 @@ function PromotedTile({
 
 function PromotedTileSkeleton() {
   return (
-    <div className="flex flex-col p-5 rounded-brand-lg border border-border-light bg-white">
+    <div className="flex min-h-[210px] flex-col p-5 rounded-brand-lg border border-border-light bg-white">
       <div className="h-11 w-11 animate-pulse rounded-[12px] bg-cream-light mb-3" />
-      <div className="h-5 w-3/4 animate-pulse rounded-brand-sm bg-cream-light mb-2" />
-      <div className="h-12 w-full animate-pulse rounded-brand-sm bg-cream-light" />
+      <div className="h-7 w-3/4 animate-pulse rounded-brand-sm bg-cream-light mb-2" />
+      <div className="h-10 w-full animate-pulse rounded-brand-sm bg-cream-light mb-3" />
+      <div className="mt-auto h-4 w-1/3 animate-pulse rounded-brand-sm bg-cream-light" />
     </div>
   );
 }
@@ -287,12 +288,12 @@ export default function Landing(_props: { centerFormOnLanding: boolean }) {
     >
       <div
         ref={contentRef}
-        className={`flex flex-col items-center gap-0 p-2 transition-[opacity,transform] duration-700 ease-out will-change-[opacity,transform] motion-reduce:transition-none ${
+        className={`flex flex-col items-center gap-0 p-2 transition-opacity duration-700 ease-out motion-reduce:transition-none ${
           showPromotedTiles
             ? 'pointer-events-none absolute inset-0 justify-center'
             : ''
         } ${
-          showPromotedTiles && tilesReady ? 'opacity-0 -translate-y-12' : 'opacity-100 translate-y-0'
+          showPromotedTiles && tilesReady ? 'opacity-0' : 'opacity-100'
         }`}
       >
         <div
@@ -332,7 +333,6 @@ export default function Landing(_props: { centerFormOnLanding: boolean }) {
                 easing={easings.easeOutCubic}
                 threshold={0}
                 rootMargin="0px"
-                onLineCountChange={handleLineCountChange}
               />
             </div>
           ) : (
