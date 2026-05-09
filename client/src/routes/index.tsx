@@ -1,4 +1,5 @@
 import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom';
+import { SystemRoles } from 'librechat-data-provider';
 import {
   Login,
   VerifyEmail,
@@ -16,6 +17,7 @@ import ProfileAvatar from '~/components/Profile/Avatar';
 import ProfileLeads from '~/components/Profile/Leads';
 import { OAuthSuccess, OAuthError } from '~/components/OAuth';
 import { AuthContextProvider } from '~/hooks/AuthContext';
+import { useAuthContext } from '~/hooks';
 import RouteErrorBoundary from './RouteErrorBoundary';
 import StartupLayout from './Layouts/Startup';
 import LoginLayout from './Layouts/Login';
@@ -24,6 +26,18 @@ import ShareRoute from './ShareRoute';
 import ChatRoute from './ChatRoute';
 import Search from './Search';
 import Root from './Root';
+
+const AdminOnlyMarketplace = () => {
+  const { user } = useAuthContext();
+  if (user?.role !== SystemRoles.ADMIN) {
+    return <Navigate to="/c/new" replace />;
+  }
+  return (
+    <MarketplaceProvider>
+      <AgentMarketplace />
+    </MarketplaceProvider>
+  );
+};
 
 const AuthLayout = () => (
   <AuthContextProvider>
@@ -151,19 +165,11 @@ export const router = createBrowserRouter(
             },
             {
               path: 'agents',
-              element: (
-                <MarketplaceProvider>
-                  <AgentMarketplace />
-                </MarketplaceProvider>
-              ),
+              element: <AdminOnlyMarketplace />,
             },
             {
               path: 'agents/:category',
-              element: (
-                <MarketplaceProvider>
-                  <AgentMarketplace />
-                </MarketplaceProvider>
-              ),
+              element: <AdminOnlyMarketplace />,
             },
             {
               path: 'admin/bonus-codes',

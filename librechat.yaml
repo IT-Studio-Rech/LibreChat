@@ -8,11 +8,28 @@ cache: true
 interface:
   modelSelect: false
   parameters: false
+  # disabled for non-tech end-users
+  bookmarks: false
+  memories: false
+  presets: false
+  multiConvo: false
+  prompts: false
+  fileSearch: false
+  runCode: false
+  temporaryChat: true
+  webSearch: true
+  fileCitations: true
   agents:
     use: true
     create: false
     share: false
     public: false
+  marketplace:
+    use: false
+  remoteAgents:
+    use: false
+  skills:
+    use: false
   customFooter: "The Female Way © 2026"
 
 modelSpecs:
