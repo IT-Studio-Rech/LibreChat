@@ -40,6 +40,7 @@ import {
   MAX_PRIMED_SKILLS_PER_TURN,
 } from './skills';
 import { registerCodeExecutionTools } from './tools';
+import { fetchUserICP } from './userContext';
 import { primeResources } from './resources';
 import type { ResolvedManualSkill, ResolvedAlwaysApplySkill } from './skills';
 import type { TFilterFilesByAgentAccess } from './resources';
@@ -883,6 +884,13 @@ export async function initializeAgent(
     skillCount = skillResult.skillCount;
     executableSkillIds = skillResult.activeSkillIds;
     activeSkillNames = skillResult.activeSkillNames;
+  }
+
+  const icpContext = await fetchUserICP(req.user?.id ?? '');
+  if (icpContext) {
+    agent.additional_instructions =
+      `[Kontext zur Nutzerin — Ihr ICP/Kundenavatar]\n${icpContext}\n\n` +
+      (agent.additional_instructions ?? '');
   }
 
   const agentMaxContextNum = Number(agentMaxContextTokens) || DEFAULT_MAX_CONTEXT_TOKENS;
