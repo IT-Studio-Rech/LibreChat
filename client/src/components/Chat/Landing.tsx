@@ -283,7 +283,7 @@ export default function Landing(_props: { centerFormOnLanding: boolean }) {
 
   return (
     <div
-      className={`relative flex w-full transform-gpu flex-col items-center pb-8 pt-6 transition-all duration-200 ${getDynamicMargin}`}
+      className={`relative flex w-full transform-gpu flex-col items-center pb-6 pt-4 transition-all duration-200 ${getDynamicMargin}`}
     >
       <div
         ref={contentRef}
@@ -363,7 +363,7 @@ export default function Landing(_props: { centerFormOnLanding: boolean }) {
             tilesReady ? 'opacity-100' : 'pointer-events-none opacity-0'
           }`}
         >
-          <div className="mx-auto mb-8 max-w-[580px] text-center">
+          <div className="mx-auto mb-6 max-w-2xl text-center">
             <h2 className="font-serif text-3xl font-semibold text-text-headline mb-2 leading-tight sm:text-4xl">
               {greetingParts.before}
               <span className="italic text-brand-rose-dark">{userName || 'dir'}</span>

@@ -91,9 +91,11 @@ function ChatView({ index = 0 }: { index?: number }) {
                       <div className="my-auto flex w-full flex-col items-center">{content}</div>
                     </div>
                     {/* TFW: chat input pinned to bottom, never scrolls away */}
-                    <div className="mx-auto w-full max-w-3xl flex-shrink-0 transition-all duration-200 xl:max-w-4xl">
-                      <ChatForm index={index} />
-                      <ConversationStarters />
+                    <div className="w-full flex-shrink-0 border-t border-border-light/60 bg-surface-base">
+                      <div className="mx-auto w-full max-w-3xl transition-all duration-200 xl:max-w-4xl">
+                        <ChatForm index={index} />
+                        <ConversationStarters />
+                      </div>
                     </div>
                   </div>
                 ) : (
