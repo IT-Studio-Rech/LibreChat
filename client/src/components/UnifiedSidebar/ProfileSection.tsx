@@ -49,7 +49,7 @@ const ProfileSection = memo(() => {
                   aria-label={localize(key)}
                   aria-current={isActive ? 'page' : undefined}
                   className={cn(
-                    'flex items-center gap-3 rounded-brand-sm px-3 py-2 text-[13.5px] font-medium transition-colors',
+                    'flex items-center gap-3 rounded-brand-sm px-3 py-2 text-[13.5px] font-medium no-underline transition-colors',
                     isActive
                       ? 'bg-brand-rose-cream font-semibold text-text-headline'
                       : 'text-text-body hover:bg-cream-dark hover:text-text-headline',

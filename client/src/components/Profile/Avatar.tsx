@@ -72,7 +72,7 @@ export default function ProfileAvatar() {
   const hasICP = !!icp?.icp_json;
 
   return (
-    <main className="mx-auto max-w-3xl px-4 py-8">
+    <main className="mx-auto max-w-5xl px-4 py-8">
       <header className="mb-6">
         <h1 className="font-serif text-h3 font-semibold text-text-headline">
           {localize('com_tfw_profile_avatar_title')}
