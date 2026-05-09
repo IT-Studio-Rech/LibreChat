@@ -121,7 +121,7 @@ function checkPrerequisites() {
 // --- Step 2: Generate secrets ---
 
 function generateSecrets() {
-  step(2, 8, 'Generating secrets...');
+  step(2, 8, 'Configuring .env secrets and local-dev defaults...');
 
   const SECRET_FIELDS = [
     { key: 'CREDS_KEY', bytes: 32 },
@@ -148,6 +148,26 @@ function generateSecrets() {
   }
 
   if (changed === 0) ok('All secrets already configured');
+
+  // MONGO_URI: Atlas placeholder -> local Docker Mongo (started in step 4)
+  const mongoUri = values['MONGO_URI'] || '';
+  const looksLikeAtlasPlaceholder =
+    mongoUri === '' ||
+    /PLACEHOLDER/i.test(mongoUri) ||
+    /<[^>]+>/.test(mongoUri) ||
+    /\.PLACEHOLDER\.mongodb\.net/.test(mongoUri);
+  if (looksLikeAtlasPlaceholder) {
+    writeEnvValue(ENV_PATH, 'MONGO_URI', 'mongodb://127.0.0.1:27017/LibreChat');
+    ok('Set MONGO_URI to local Docker Mongo');
+  } else {
+    ok('MONGO_URI already configured — skipped');
+  }
+
+  // SEARCH: warn if enabled — dev:setup does not start a Meili container
+  if ((values['SEARCH'] || '').trim() === 'true') {
+    warn('SEARCH=true but no Meili container is started by dev:setup.');
+    warn('  Backend will log harmless [mongoMeili] errors. Set SEARCH=false in .env to silence.');
+  }
 }
 
 // --- Step 3: tfw-services/.env ---
