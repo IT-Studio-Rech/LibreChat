@@ -237,19 +237,23 @@ function ensureMongoContainer() {
 // --- Step 5: Install dependencies ---
 
 function installDependencies() {
-  step(5, 8, 'Installing dependencies...');
+  step(5, 8, 'Installing dependencies & building LibreChat packages...');
 
-  ok('Installing root dependencies...');
-  const rootInstall = spawnSync('npm', ['install'], {
+  ok('Running smart-reinstall (install + turbo build, cached)...');
+  const rootInstall = spawnSync('npm', ['run', 'smart-reinstall'], {
     cwd: ROOT,
     stdio: 'inherit',
     shell: process.platform === 'win32',
   });
   if (rootInstall.status !== 0) {
-    fail('npm install failed in root.\n  Check the error above and retry.');
+    fail(
+      'smart-reinstall failed in root.\n' +
+        '  Check the error above and retry. To force a clean rebuild:\n' +
+        '  npm run smart-reinstall -- --force',
+    );
     process.exit(1);
   }
-  ok('Root dependencies installed');
+  ok('Root dependencies installed and packages built');
 
   if (fs.existsSync(TFW_SERVICES_DIR)) {
     ok('Installing tfw-services dependencies...');
