@@ -408,18 +408,19 @@ function setupDevYaml() {
     const base = fs.readFileSync(LIBRECHAT_YAML_PATH, 'utf8');
 
     // Replace the default: true spec with a gpt-4o based one
+    const devSpec = [
+      '- name: taras-ki-assistentin',
+      '      label: "Taras KI-Assistentin"',
+      '      description: "Deine persoenliche KI-Assistentin — auf die weibliche Art."',
+      '      default: true',
+      '      preset:',
+      '        endpoint: openAI',
+      '        model: gpt-4o',
+    ].join('\n');
     const devYaml = base
       .replace(
         /- name: taras-ki-assistentin[\s\S]*?model: claude-sonnet-4-6/m,
-        [
-          '- name: taras-ki-assistentin',
-          '      label: "Taras KI-Assistentin"',
-          '      description: "Deine persoenliche KI-Assistentin — auf die weibliche Art."',
-          '      default: true',
-          '      preset:',
-          '        endpoint: openAI',
-          '        model: gpt-4o',
-        ].join('\n      '),
+        devSpec,
       )
       .replace(
         /actions:\n  allowedDomains:\n(.*)/m,
