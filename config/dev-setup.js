@@ -254,11 +254,14 @@ function installDependencies() {
   step(5, 8, 'Installing dependencies & building LibreChat packages...');
 
   ok('Running smart-reinstall (install + turbo build, cached)...');
-  const rootInstall = spawnSync('npm', ['run', 'smart-reinstall'], {
-    cwd: ROOT,
-    stdio: 'inherit',
-    shell: process.platform === 'win32',
-  });
+  const runReinstall = (force) =>
+    spawnSync('npm', force ? ['run', 'smart-reinstall', '--', '--force'] : ['run', 'smart-reinstall'], {
+      cwd: ROOT,
+      stdio: 'inherit',
+      shell: process.platform === 'win32',
+    });
+
+  let rootInstall = runReinstall(false);
   if (rootInstall.status !== 0) {
     warn('smart-reinstall failed — usually means a stale node_modules from a previous run.');
     const retry = promptYesNo('Retry with --force (clean rebuild from scratch)?', true);
@@ -271,21 +274,42 @@ function installDependencies() {
       process.exit(1);
     }
     ok('Retrying with --force...');
-    const retryRun = spawnSync('npm', ['run', 'smart-reinstall', '--', '--force'], {
-      cwd: ROOT,
-      stdio: 'inherit',
-      shell: process.platform === 'win32',
-    });
-    if (retryRun.status !== 0) {
-      fail(
-        'smart-reinstall --force also failed.\n' +
-          '  Try manually: rm -rf node_modules packages/*/node_modules client/node_modules api/node_modules\n' +
-          '  Then re-run: npm run dev:setup',
-      );
-      process.exit(1);
-    }
+    rootInstall = runReinstall(true);
+  }
+
+  if (rootInstall.status !== 0) {
+    if (suggestNpmCacheChownIfNeeded()) process.exit(1);
+    fail(
+      'smart-reinstall --force also failed.\n' +
+        '  Manually clean and retry:\n' +
+        '  rm -rf node_modules packages/data-provider/node_modules packages/data-schemas/node_modules packages/client/node_modules packages/api/node_modules client/node_modules api/node_modules\n' +
+        '  npm run dev:setup',
+    );
+    process.exit(1);
   }
   ok('Root dependencies installed and packages built');
+}
+
+function suggestNpmCacheChownIfNeeded() {
+  const npmCacheDir = path.join(process.env.HOME || '', '.npm', '_cacache');
+  if (!fs.existsSync(npmCacheDir)) return false;
+  try {
+    const stat = fs.statSync(npmCacheDir);
+    if (typeof stat.uid === 'number' && typeof process.getuid === 'function' && stat.uid !== process.getuid()) {
+      const realUid = process.getuid();
+      const realGid = typeof process.getgid === 'function' ? process.getgid() : 20;
+      fail(
+        'npm cache contains root-owned files from a past "sudo npm" run.\n' +
+          '  Fix once with:\n' +
+          `  sudo chown -R ${realUid}:${realGid} "${path.dirname(npmCacheDir)}"\n` +
+          '  Then re-run: npm run dev:setup',
+      );
+      return true;
+    }
+  } catch {
+    /* ignore stat errors */
+  }
+  return false;
 
   if (fs.existsSync(TFW_SERVICES_DIR)) {
     ok('Installing tfw-services dependencies...');
