@@ -23,8 +23,8 @@ const ConvoLink: React.FC<ConvoLinkProps> = ({
   return (
     <div
       className={cn(
-        'flex grow items-center gap-2 overflow-hidden rounded-lg px-2',
-        isActiveConvo || isPopoverActive ? 'bg-surface-active-alt' : '',
+        'flex grow items-center gap-2 overflow-hidden rounded-brand-sm px-2 text-[13.5px]',
+        isActiveConvo || isPopoverActive ? 'bg-brand-rose-cream text-text-headline' : '',
       )}
       title={title ?? undefined}
       aria-current={isActiveConvo ? 'page' : undefined}
@@ -50,8 +50,8 @@ const ConvoLink: React.FC<ConvoLinkProps> = ({
         className={cn(
           'pointer-events-none absolute bottom-0.5 right-0.5 top-0.5 w-20 rounded-r-md bg-gradient-to-l',
           isActiveConvo || isPopoverActive
-            ? 'from-surface-active-alt'
-            : 'from-surface-primary-alt from-0% to-transparent group-hover:from-surface-active-alt group-hover:from-40%',
+            ? 'from-brand-rose-cream'
+            : 'from-cream-light from-0% to-transparent group-hover:from-cream-dark group-hover:from-40%',
         )}
         aria-hidden="true"
       />

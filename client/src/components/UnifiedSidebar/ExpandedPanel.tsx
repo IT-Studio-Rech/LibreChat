@@ -48,10 +48,10 @@ const NewChatButton = memo(function NewChatButton({
           href="/c/new"
           data-testid="new-chat-button"
           aria-label={localize('com_ui_new_chat')}
-          className="flex h-9 w-9 items-center justify-center rounded-lg transition-colors hover:bg-surface-hover"
+          className="flex h-9 w-9 items-center justify-center rounded-brand-md bg-brand-rose text-white transition hover:-translate-y-px hover:bg-brand-rose-dark hover:shadow-brand-md"
           onClick={handleClick}
         >
-          <SquarePen className="h-5 w-5 text-text-primary" />
+          <SquarePen className="h-4 w-4" />
         </a>
       }
     />
@@ -137,7 +137,7 @@ function ExpandedPanel({
   const toggleClick = expanded ? onCollapse : onExpand;
 
   return (
-    <div className="flex h-full flex-shrink-0 flex-col gap-2 border-r border-border-light bg-surface-primary-alt px-2 py-2">
+    <div className="flex h-full flex-shrink-0 flex-col gap-2 border-r border-border-light bg-cream-light px-2 py-2">
       <TooltipAnchor
         side="right"
         description={localize(toggleLabel)}

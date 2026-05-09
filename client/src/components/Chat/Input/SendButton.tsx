@@ -23,13 +23,13 @@ const SubmitButton = React.memo(
             id="send-button"
             disabled={props.disabled}
             className={cn(
-              'rounded-full bg-text-primary p-1.5 text-text-primary outline-offset-4 transition-all duration-200 disabled:cursor-not-allowed disabled:text-text-secondary disabled:opacity-10',
+              'flex h-9 w-9 items-center justify-center rounded-brand-md bg-brand-rose text-white outline-offset-4 transition hover:-translate-y-px hover:bg-brand-rose-dark hover:shadow-brand-md disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:opacity-50',
             )}
             data-testid="send-button"
             type="submit"
           >
             <span className="" data-state="closed">
-              <SendIcon size={24} />
+              <SendIcon size={16} />
             </span>
           </button>
         }

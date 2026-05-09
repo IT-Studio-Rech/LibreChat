@@ -14,13 +14,14 @@ import { cn } from '~/utils';
 import store from '~/store';
 
 const COLLAPSED_WIDTH = 52;
-const EXPANDED_MIN = 360;
+const EXPANDED_MIN = 280;
+const EXPANDED_DEFAULT = 280;
 const TRANSITION_MS = 300;
 const EASING = 'cubic-bezier(0.2, 0, 0, 1)';
 
 function getInitialWidth(): number {
   const saved = localStorage.getItem('side:width');
-  return saved ? Math.max(Number(saved), EXPANDED_MIN) : EXPANDED_MIN;
+  return saved ? Math.max(Number(saved), EXPANDED_MIN) : EXPANDED_DEFAULT;
 }
 
 /**
@@ -137,7 +138,7 @@ function UnifiedSidebar() {
       <>
         <div
           className={cn(
-            'fixed left-0 top-0 z-[110] flex h-full bg-surface-primary-alt',
+            'fixed left-0 top-0 z-[110] flex h-full bg-cream-light',
             expanded ? 'translate-x-0' : '-translate-x-full',
           )}
           style={{
@@ -149,7 +150,7 @@ function UnifiedSidebar() {
           <SidebarChatProvider>
             <ActivePanelProvider>
               <ExpandedPanel links={links} onCollapse={handleCollapse} />
-              <nav className="min-h-0 flex-1 overflow-hidden bg-surface-primary-alt">
+              <nav className="min-h-0 flex-1 overflow-hidden bg-cream-light">
                 <SidePanelNav links={links} />
               </nav>
             </ActivePanelProvider>

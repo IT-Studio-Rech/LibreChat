@@ -32,7 +32,7 @@ function getAgentIcon(name: string | null): React.ComponentType<{ className?: st
 }
 
 const AgentSkeletonItem = memo(() => (
-  <li className="flex items-center gap-3 rounded-lg px-3 py-2" aria-hidden="true">
+  <li className="flex items-center gap-3 rounded-brand-sm px-3 py-2" aria-hidden="true">
     <div className="h-4 w-4 flex-shrink-0 animate-pulse rounded bg-cream" />
     <div className="h-3 w-24 animate-pulse rounded bg-cream" />
   </li>
@@ -59,11 +59,12 @@ const AgentItem = memo(({ agent, onSelect }: AgentItemProps) => {
         type="button"
         onClick={handleClick}
         aria-label={localize('com_tfw_sidebar_agent_start').replace('{{name}}', agent.name ?? '')}
-        className="group flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-text-body transition-colors hover:bg-brand-rose-cream hover:text-brand-rose-dark"
+        className="group flex w-full items-center gap-3 rounded-brand-sm px-3 py-2 text-[13.5px] font-medium text-text-body transition-colors hover:bg-cream-dark hover:text-text-headline"
       >
         <Icon
-          className="h-4 w-4 flex-shrink-0 text-text-secondary transition-colors group-hover:text-brand-rose-dark"
+          className="h-4 w-4 flex-shrink-0 text-text-muted transition-colors group-hover:text-text-headline"
           aria-hidden="true"
+          strokeWidth={1.75}
         />
         <span className="truncate text-left">{agent.name}</span>
       </button>
@@ -103,11 +104,11 @@ const AssistantsSection = memo(() => {
   }
 
   return (
-    <section aria-label={localize('com_tfw_sidebar_section_agents')} className="px-3 pt-1">
+    <section aria-label={localize('com_tfw_sidebar_section_agents')} className="mt-2 px-3 pt-1">
       <button
         type="button"
         onClick={() => setIsExpanded(!isExpanded)}
-        className="group flex w-full items-center justify-between rounded-lg px-1 py-2 text-xs font-bold text-text-secondary outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-black dark:focus-visible:ring-white"
+        className="group flex w-full items-center justify-between rounded-lg px-1 py-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-text-muted outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-black dark:focus-visible:ring-white"
       >
         <span className="select-none">{localize('com_tfw_sidebar_section_agents')}</span>
         <ChevronDown

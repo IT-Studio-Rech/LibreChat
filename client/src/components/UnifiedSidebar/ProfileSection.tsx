@@ -23,11 +23,11 @@ const ProfileSection = memo(() => {
   const [isExpanded, setIsExpanded] = useLocalStorage('tfw:profileSectionExpanded', true);
 
   return (
-    <section aria-label={localize('com_tfw_sidebar_section_profile')} className="px-3 pt-1">
+    <section aria-label={localize('com_tfw_sidebar_section_profile')} className="mt-4 px-3 pt-1">
       <button
         type="button"
         onClick={() => setIsExpanded(!isExpanded)}
-        className="group flex w-full items-center justify-between rounded-lg px-1 py-2 text-xs font-bold text-text-secondary outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-black dark:focus-visible:ring-white"
+        className="group flex w-full items-center justify-between rounded-lg px-1 py-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-text-muted outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-black dark:focus-visible:ring-white"
       >
         <span className="select-none">{localize('com_tfw_sidebar_section_profile')}</span>
         <ChevronDown
@@ -49,18 +49,19 @@ const ProfileSection = memo(() => {
                   aria-label={localize(key)}
                   aria-current={isActive ? 'page' : undefined}
                   className={cn(
-                    'flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors',
+                    'flex items-center gap-3 rounded-brand-sm px-3 py-2 text-[13.5px] font-medium transition-colors',
                     isActive
-                      ? 'bg-brand-rose-cream font-semibold text-brand-rose-dark'
-                      : 'text-text-body hover:bg-surface-hover hover:text-text-primary',
+                      ? 'bg-brand-rose-cream font-semibold text-text-headline'
+                      : 'text-text-body hover:bg-cream-dark hover:text-text-headline',
                   )}
                 >
                   <Icon
                     className={cn(
                       'h-4 w-4 flex-shrink-0',
-                      isActive ? 'text-brand-rose-dark' : 'text-text-secondary',
+                      isActive ? 'text-brand-rose-dark' : 'text-text-muted',
                     )}
                     aria-hidden="true"
+                    strokeWidth={1.75}
                   />
                   <span>{localize(key)}</span>
                 </Link>

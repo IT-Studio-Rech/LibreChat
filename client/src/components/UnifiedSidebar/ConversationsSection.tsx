@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState, useMemo, memo, lazy, Suspense, useRef } from 'react';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
+import { Plus } from 'lucide-react';
 import { useMediaQuery } from '@librechat/client';
 import { PermissionTypes, Permissions } from 'librechat-data-provider';
 import type { InfiniteQueryObserverResult } from '@tanstack/react-query';
@@ -110,6 +111,23 @@ const ConversationsSection = memo(() => {
       role="region"
       aria-label={localize('com_ui_chat_history')}
     >
+      <div className="border-b border-border-light px-4 pb-4 pt-5">
+        <div className="mb-4 flex items-center gap-2.5 px-1">
+          <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand-rose to-brand-peach">
+            <span className="font-serif text-base font-bold text-white">F</span>
+          </div>
+          <span className="font-serif text-[17px] font-semibold leading-none text-text-headline">
+            The Female Way
+          </span>
+        </div>
+        <a
+          href="/c/new"
+          className="flex w-full items-center justify-center gap-2 rounded-brand-md bg-brand-rose px-4 py-3 font-ui text-sm font-semibold text-white transition hover:-translate-y-px hover:bg-brand-rose-dark hover:shadow-brand-md"
+        >
+          <Plus className="h-4 w-4" />
+          {localize('com_ui_new_chat')}
+        </a>
+      </div>
       <ProfileSection />
       <AssistantsSection />
       <div className="mx-3 my-1 border-b border-border-light" />

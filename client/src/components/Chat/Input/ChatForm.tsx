@@ -217,8 +217,8 @@ const ChatForm = memo(function ChatForm({
   const baseClasses = useMemo(
     () =>
       cn(
-        'md:py-3.5 m-0 w-full resize-none py-[13px] placeholder-black/60 bg-transparent dark:placeholder-white/60 [&:has(textarea:focus)]:shadow-[0_2px_6px_rgba(0,0,0,.05)]',
-        isCollapsed ? 'max-h-[52px]' : 'max-h-[45vh] md:max-h-[55vh]',
+        'md:py-3.5 m-0 w-full resize-none py-[13px] bg-transparent text-[15px] leading-[1.5] placeholder-text-muted dark:placeholder-white/60 [&:has(textarea:focus)]:shadow-[0_2px_6px_rgba(0,0,0,.05)]',
+        isCollapsed ? 'max-h-[52px]' : 'max-h-[200px] md:max-h-[200px]',
         isMoreThanThreeRows ? 'pl-5' : 'px-5',
       ),
     [isCollapsed, isMoreThanThreeRows],
@@ -228,8 +228,8 @@ const ChatForm = memo(function ChatForm({
     <form
       onSubmit={methods.handleSubmit(submitMessage)}
       className={cn(
-        'mx-auto flex w-full flex-row gap-3 transition-[max-width] duration-300 sm:px-2',
-        maximizeChatSpace ? 'max-w-full' : 'md:max-w-3xl xl:max-w-4xl',
+        'mx-auto flex w-full flex-row gap-3 transition-[max-width] duration-300 sm:px-6',
+        maximizeChatSpace ? 'max-w-full' : 'md:max-w-3xl xl:max-w-3xl',
         centerFormOnLanding &&
           (conversationId == null || conversationId === Constants.NEW_CONVO) &&
           !isSubmitting &&
@@ -265,11 +265,13 @@ const ChatForm = memo(function ChatForm({
           <div
             onClick={handleContainerClick}
             className={cn(
-              'relative flex w-full flex-grow flex-col overflow-hidden rounded-t-3xl border pb-4 text-text-primary transition-all duration-200 sm:rounded-3xl sm:pb-0',
-              isTextAreaFocused ? 'shadow-lg' : 'shadow-md',
+              'relative flex w-full flex-grow flex-col overflow-hidden rounded-t-3xl border pb-4 text-text-primary transition-all duration-200 sm:rounded-brand-lg sm:pb-0',
+              isTextAreaFocused
+                ? 'border-brand-rose shadow-brand-sm ring-[3px] ring-brand-rose/15'
+                : 'border-border-light shadow-brand-sm',
               isTemporary
                 ? 'border-violet-800/60 bg-violet-950/10'
-                : 'border-border-light bg-surface-chat',
+                : 'bg-surface-warm',
             )}
           >
             <TextareaHeader addedConvo={addedConvo} setAddedConvo={setAddedConvo} />
