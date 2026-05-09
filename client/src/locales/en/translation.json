@@ -1749,5 +1749,8 @@
   "com_tfw_bonus_codes_status_open": "Open",
   "com_tfw_bonus_codes_loading": "Loading...",
   "com_tfw_bonus_codes_error": "An error occurred. Please try again.",
+  "com_tfw_landing_tile_aria": "Start conversation with {{name}}",
+  "com_tfw_landing_tile_cta": "Start",
+  "com_tfw_landing_loading": "Loading assistants ...",
   "com_user_message": "You"
 }
