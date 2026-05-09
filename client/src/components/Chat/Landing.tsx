@@ -266,13 +266,30 @@ export default function Landing({ centerFormOnLanding }: { centerFormOnLanding: 
   // the LibreChat default centerFormOnLanding behaviour pins max-h to 0 on sm+ so
   // the input chip floats centered, but that throws our tile grid off-screen.
   const collapseToInput = centerFormOnLanding && !showPromotedTiles;
+
+  // TFW: stage the reveal — LibreChat default greeting plays its SplitText animation
+  // first (about 1.7s for the typical greeting), then fades out and the TFW tile
+  // grid fades in. When there are no promoted tiles we stay on the LibreChat
+  // greeting forever and skip the transition.
+  const [tilesReady, setTilesReady] = useState(false);
+  useEffect(() => {
+    if (!showPromotedTiles) {
+      setTilesReady(false);
+      return;
+    }
+    const t = setTimeout(() => setTilesReady(true), 2200);
+    return () => clearTimeout(t);
+  }, [showPromotedTiles]);
+
   return (
     <div
       className={`flex h-full transform-gpu flex-col items-center justify-center pb-16 transition-all duration-200 ${collapseToInput ? 'max-h-full sm:max-h-0' : 'max-h-full'} ${getDynamicMargin}`}
     >
       <div
         ref={contentRef}
-        className={`flex flex-col items-center gap-0 p-2 ${showPromotedTiles ? 'hidden' : ''}`}
+        className={`flex flex-col items-center gap-0 p-2 transition-opacity duration-500 motion-reduce:transition-none ${
+          showPromotedTiles && tilesReady ? 'pointer-events-none absolute opacity-0' : 'opacity-100'
+        }`}
       >
         <div
           className={`flex ${textHasMultipleLines ? 'flex-col' : 'flex-col md:flex-row'} items-center justify-center gap-2`}
@@ -337,7 +354,11 @@ export default function Landing({ centerFormOnLanding }: { centerFormOnLanding: 
         )}
       </div>
       {showPromotedTiles && (
-        <div className="mt-6 w-full max-w-3xl px-2">
+        <div
+          className={`mt-6 w-full max-w-3xl px-2 transition-opacity duration-700 motion-reduce:transition-none ${
+            tilesReady ? 'opacity-100' : 'pointer-events-none absolute opacity-0'
+          }`}
+        >
           <div className="mx-auto mb-12 max-w-[580px] text-center">
             <h2 className="font-serif text-4xl font-semibold text-text-headline mb-3 leading-tight">
               {greetingParts.before}
