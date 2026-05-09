@@ -262,3 +262,56 @@ export type BonusCodeWithUser = {
   usedBy: BonusCodeUser | null;
   usedAt: string | null;
 };
+
+/* Profile — ICP */
+export type ICPRecord = {
+  user_id: string;
+  icp_json: Record<string, string> | string | null;
+  coaching_step?: string;
+  updated_at?: string;
+};
+
+export type ICPUpdatePayload = {
+  icp_json?: Record<string, string> | string;
+  coaching_step?: string;
+};
+
+/* Profile — Leads */
+export type LeadStatus = 'cold' | 'warm' | 'hot' | 'closed';
+export type LeadPlatform = 'linkedin' | 'instagram' | 'other';
+
+export type Lead = {
+  id: string;
+  user_id: string;
+  lead_name: string;
+  platform: LeadPlatform;
+  status: LeadStatus;
+  notes?: string;
+  next_action?: string;
+  next_action_date?: string;
+  created_at?: string;
+  updated_at?: string;
+};
+
+export type LeadCreatePayload = {
+  lead_name: string;
+  platform?: LeadPlatform;
+  status?: LeadStatus;
+  notes?: string;
+  next_action?: string;
+  next_action_date?: string;
+};
+
+export type LeadUpdatePayload = Partial<LeadCreatePayload>;
+
+export type LeadListOptions = {
+  filter?: string;
+  status?: LeadStatus;
+  cursor?: string;
+  limit?: number;
+};
+
+export type LeadListResponse = {
+  leads: Lead[];
+  nextCursor?: string;
+};

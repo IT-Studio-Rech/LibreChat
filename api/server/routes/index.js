@@ -1,3 +1,4 @@
+const profile = require('./profile');
 const accessPermissions = require('./accessPermissions');
 const assistants = require('./assistants');
 const categories = require('./categories');
@@ -35,6 +36,7 @@ const user = require('./user');
 const mcp = require('./mcp');
 
 module.exports = {
+  profile,
   mcp,
   auth,
   adminAuth,

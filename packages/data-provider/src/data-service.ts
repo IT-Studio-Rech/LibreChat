@@ -1293,3 +1293,44 @@ export function getBonusCharges(): Promise<q.ChargeAggregate[]> {
 export function getBonusChargeDetails(description: string): Promise<q.BonusCodeWithUser[]> {
   return request.get(endpoints.adminBonusChargeDetails(description));
 }
+
+/* Profile — ICP */
+export function getProfileICP(): Promise<q.ICPRecord> {
+  return request.get(endpoints.profileICP());
+}
+
+export function updateProfileICP(payload: q.ICPUpdatePayload): Promise<q.ICPRecord> {
+  return request.put(endpoints.profileICP(), payload);
+}
+
+export function deleteProfileICP(): Promise<void> {
+  return request.delete(endpoints.profileICP());
+}
+
+/* Profile — Leads */
+export function listProfileLeads(opts?: q.LeadListOptions): Promise<q.LeadListResponse> {
+  const params = new URLSearchParams();
+  if (opts?.status) params.set('status', opts.status);
+  if (opts?.filter) params.set('filter', opts.filter);
+  if (opts?.cursor) params.set('cursor', opts.cursor);
+  if (opts?.limit != null) params.set('limit', String(opts.limit));
+  const qs = params.toString();
+  const url = qs ? `${endpoints.profileLeads()}?${qs}` : endpoints.profileLeads();
+  return request.get(url);
+}
+
+export function createProfileLead(payload: q.LeadCreatePayload): Promise<q.Lead> {
+  return request.post(endpoints.profileLeads(), payload);
+}
+
+export function getProfileLead(leadId: string): Promise<q.Lead> {
+  return request.get(endpoints.profileLead(leadId));
+}
+
+export function updateProfileLead(leadId: string, partial: q.LeadUpdatePayload): Promise<q.Lead> {
+  return request.patch(endpoints.profileLead(leadId), partial);
+}
+
+export function deleteProfileLead(leadId: string): Promise<void> {
+  return request.delete(endpoints.profileLead(leadId));
+}

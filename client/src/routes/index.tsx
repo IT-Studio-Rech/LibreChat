@@ -11,6 +11,8 @@ import {
 import { MarketplaceProvider } from '~/components/Agents/MarketplaceContext';
 import AgentMarketplace from '~/components/Agents/Marketplace';
 import BonusCodes from '~/components/Admin/BonusCodes';
+import ProfileAvatar from '~/components/Profile/Avatar';
+import ProfileLeads from '~/components/Profile/Leads';
 import { OAuthSuccess, OAuthError } from '~/components/OAuth';
 import { AuthContextProvider } from '~/hooks/AuthContext';
 import RouteErrorBoundary from './RouteErrorBoundary';
@@ -165,6 +167,14 @@ export const router = createBrowserRouter(
             {
               path: 'admin/bonus-codes',
               element: <BonusCodes />,
+            },
+            {
+              path: 'profile/avatar',
+              element: <ProfileAvatar />,
+            },
+            {
+              path: 'profile/leads',
+              element: <ProfileLeads />,
             },
           ],
         },

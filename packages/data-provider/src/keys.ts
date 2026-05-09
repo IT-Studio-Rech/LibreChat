@@ -83,6 +83,10 @@ export enum QueryKeys {
   /* Bonus Codes */
   bonusCharges = 'bonusCharges',
   bonusChargeDetails = 'bonusChargeDetails',
+  /* Profile */
+  profileICP = 'profileICP',
+  profileLeads = 'profileLeads',
+  profileLead = 'profileLead',
 }
 
 // Dynamic query keys that require parameters
@@ -122,4 +126,9 @@ export enum MutationKeys {
   deleteSkillNode = 'deleteSkillNode',
   updateSkillNodeContent = 'updateSkillNodeContent',
   generateBonusCodes = 'generateBonusCodes',
+  /* Profile mutations */
+  updateProfileICP = 'updateProfileICP',
+  createProfileLead = 'createProfileLead',
+  updateProfileLead = 'updateProfileLead',
+  deleteProfileLead = 'deleteProfileLead',
 }

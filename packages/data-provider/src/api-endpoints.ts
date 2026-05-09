@@ -497,3 +497,9 @@ export const getAllEffectivePermissions = (resourceType: ResourceType) =>
 // SharePoint Graph API Token
 export const graphToken = (scopes: string) =>
   `${BASE_URL}/api/auth/graph-token?scopes=${encodeURIComponent(scopes)}`;
+
+/* Profile */
+export const profileICP = () => `${BASE_URL}/api/profile/icp`;
+export const profileLeads = () => `${BASE_URL}/api/profile/leads`;
+export const profileLead = (leadId: string) =>
+  `${BASE_URL}/api/profile/leads/${encodeURIComponent(leadId)}`;

@@ -55,6 +55,9 @@ export * from './cache';
 export * from './stream';
 /* Diagnostics */
 export { memoryDiagnostics } from './utils/memory';
+/* Profile */
+export * from './profile/userContext';
+export * from './profile/leads';
 /* types */
 export type * from './mcp/types';
 export type * from './flow/types';
