@@ -1595,7 +1595,7 @@
   "com_tfw_vaultupload_error": "Upload fehlgeschlagen. Bitte erneut versuchen.",
   "com_tfw_vaultupload_no_file": "Bitte zuerst eine Datei auswählen.",
   "com_tfw_vaultupload_selected_file": "Ausgewählt: {{filename}}",
-  "com_tfw_landing_greeting": "Hey {{name}}! Womit kann ich dir heute helfen?",
+  "com_tfw_landing_greeting": "Hey {{name}}, womit kann ich dir heute helfen?",
   "com_tfw_landing_subtitle": "Wähle eines der Module oder schreib direkt deine Frage unten.",
   "com_tfw_landing_tile_aria": "Konversation mit {{name}} starten",
   "com_tfw_landing_tile_cta": "Loslegen",
