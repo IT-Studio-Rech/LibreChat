@@ -22,6 +22,27 @@ module.exports = {
       width: {
         authPageWidth: '370px',
       },
+      fontFamily: {
+        serif: ['"Playfair Display"', 'Georgia', 'serif'],
+        ui:    ['Jost', 'Inter', 'sans-serif'],
+      },
+      fontSize: {
+        display: ['61px', { lineHeight: '1.0',   fontWeight: '600' }],
+        h1:      ['48px', { lineHeight: '1.2em', fontWeight: '600' }],
+        h2:      ['39px', { lineHeight: '1.2em', fontWeight: '600' }],
+        h3:      ['31px', { lineHeight: '1.3em', fontWeight: '600' }],
+        h4:      ['27px', { lineHeight: '1.3em', fontWeight: '600' }],
+        h5:      ['25px', { lineHeight: '1.3em', fontWeight: '500' }],
+        subhead: ['18px', { lineHeight: '1.4em', fontWeight: '600' }],
+        eyebrow: ['14px', { letterSpacing: '1px', fontWeight: '500' }],
+        'body-sm': ['14px', { lineHeight: '1.4em', fontWeight: '400' }],
+        caption:   ['13px', { lineHeight: '1.5em', fontWeight: '400' }],
+      },
+      boxShadow: {
+        'brand-sm': '0 1px 2px rgba(254, 160, 174, 0.05)',
+        'brand-md': '0 4px 12px rgba(254, 160, 174, 0.08)',
+        'brand-lg': '0 8px 24px rgba(254, 160, 174, 0.12)',
+      },
       keyframes: {
         'accordion-down': {
           from: { height: 0 },
@@ -47,9 +68,19 @@ module.exports = {
           '0%': { transform: 'translateX(0)' },
           '100%': { transform: 'translateX(100%)' },
         },
+        fadeIn: {
+          from: { opacity: '0', transform: 'translateY(10px)' },
+          to:   { opacity: '1', transform: 'translateY(0)' },
+        },
+        slideInUp: {
+          from: { opacity: '0', transform: 'translateY(30px)' },
+          to:   { opacity: '1', transform: 'translateY(0)' },
+        },
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-out forwards',
+        'brand-fade-in':  'fadeIn 300ms ease-out',
+        'brand-slide-in': 'slideInUp 500ms cubic-bezier(0.4, 0, 0.2, 1)',
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         'slide-in-right': 'slide-in-right 300ms cubic-bezier(0.25, 0.1, 0.25, 1)',
@@ -58,6 +89,27 @@ module.exports = {
         'slide-out-right': 'slide-out-right 300ms cubic-bezier(0.25, 0.1, 0.25, 1)',
       },
       colors: {
+        'brand-rose': {
+          DEFAULT: '#FEA0AE',
+          light:   '#FED4D5',
+          cream:   '#FFF8F8',
+          dark:    '#E88997',
+        },
+        'brand-yellow': '#FFB802',
+        'brand-peach':  '#FFBC7D',
+        cream: {
+          light:   '#FAF7F3',
+          DEFAULT: '#F3E9E1',
+          dark:    '#EDE0DE',
+        },
+        mauve: {
+          light:   '#E9BFB3',
+          DEFAULT: '#D2ACA1',
+        },
+        taupe: '#D7CAC6',
+        'text-headline': '#110E0E',
+        'text-body':     '#493C3C',
+        'text-muted':    '#8A7878',
         gray: {
           20: '#ececf1',
           50: '#f7f7f8',
@@ -156,6 +208,10 @@ module.exports = {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
+        'brand-sm':   '6px',
+        'brand-md':   '10px',
+        'brand-lg':   '20px',
+        'brand-pill': '9999px',
       },
     },
   },

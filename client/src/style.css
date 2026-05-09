@@ -128,6 +128,69 @@ html {
   --chart-4: 43 74% 66%;
   --chart-5: 27 87% 67%;
   --switch-unchecked: 0 0% 58%;
+
+  /* === The Female Way Brand Tokens === */
+
+  /* Primary */
+  --brand-rose:        #FEA0AE;
+  --brand-rose-light:  #FED4D5;
+  --brand-rose-cream:  #FFF8F8;
+  --brand-rose-dark:   #E88997;
+
+  /* Secondary */
+  --brand-yellow:      #FFB802;
+  --brand-peach:       #FFBC7D;
+
+  /* Cream Palette */
+  --cream-light:       #FAF7F3;
+  --cream:             #F3E9E1;
+  --cream-dark:        #EDE0DE;
+
+  /* Mauve / Taupe */
+  --mauve-light:       #E9BFB3;
+  --taupe:             #D7CAC6;
+  --mauve:             #D2ACA1;
+
+  /* Text */
+  --text-headline:     #110E0E;
+  --text-body:         #493C3C;
+  --text-secondary-tf: #8A7878;
+  --text-on-brand:     #FFFFFF;
+
+  /* Borders */
+  --border-light-tf:   #EDE0DE;
+  --border-medium-tf:  #D7CAC6;
+
+  /* Surfaces */
+  --surface-base:      #FFFFFF;
+  --surface-warm:      #FAF7F3;
+
+  /* Spacing — 8px Grid */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+
+  /* Border Radius */
+  --radius-sm:   6px;
+  --radius-md:   10px;
+  --radius-lg:   20px;
+  --radius-pill: 9999px;
+
+  /* Shadows — rosa-tinted, subtle */
+  --shadow-sm: 0 1px 2px rgba(254, 160, 174, 0.05);
+  --shadow-md: 0 4px 12px rgba(254, 160, 174, 0.08);
+  --shadow-lg: 0 8px 24px rgba(254, 160, 174, 0.12);
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 200ms ease;
+  --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .dark {
   --brand-purple: #ab68ff;

@@ -72,8 +72,9 @@ bower_components/
 .flooignore
 
 #config file
-librechat.yaml
-librechat.yml
+# librechat.yaml is committed for The Female Way fork — brand customization config
+# librechat.yaml
+# librechat.yml
 
 # Environment
 .npmrc
