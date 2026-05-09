@@ -49,9 +49,9 @@ const App = () => {
       <RecoilRoot>
         <LiveAnnouncer>
           <ThemeProvider
-            // Only pass initialTheme and themeRGB if environment theme exists
-            // This allows localStorage values to persist when no env theme is set
-            {...(envTheme && { initialTheme: 'system', themeRGB: envTheme })}
+            // TFW: light mode locked per brand requirement; custom colors applied if set via env
+            initialTheme="light"
+            {...(envTheme && { themeRGB: envTheme })}
           >
             {/* The ThemeProvider will automatically:
                 1. Apply dark/light mode classes

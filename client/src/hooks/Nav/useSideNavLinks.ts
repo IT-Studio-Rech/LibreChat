@@ -170,13 +170,16 @@ export default function useSideNavLinks({
       });
     }
 
-    links.push({
-      title: 'com_sidepanel_attach_files',
-      label: '',
-      icon: AttachmentIcon,
-      id: 'files',
-      Component: FilesPanel,
-    });
+    // TFW: files panel suppressed when fileSearch is disabled per brand requirement
+    if (interfaceConfig.fileSearch !== false) {
+      links.push({
+        title: 'com_sidepanel_attach_files',
+        label: '',
+        icon: AttachmentIcon,
+        id: 'files',
+        Component: FilesPanel,
+      });
+    }
 
     if (
       interfaceConfig.parameters === true &&
@@ -229,6 +232,7 @@ export default function useSideNavLinks({
     hasAccessToMemories,
     hasAccessToReadMemories,
     interfaceConfig.parameters,
+    interfaceConfig.fileSearch,
     endpointType,
     hasAccessToBookmarks,
     availableMCPServers,
