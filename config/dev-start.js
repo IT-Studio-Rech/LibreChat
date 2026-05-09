@@ -5,7 +5,6 @@ const { spawnSync, spawn } = require('child_process');
 const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
-const TFW_SERVICES_DIR = path.join(ROOT, 'tfw-services');
 
 function ok(msg) {
   console.log(`  \x1b[32m✓\x1b[0m ${msg}`);
@@ -55,24 +54,20 @@ function startAll() {
   console.log('  Starting: services | backend | frontend');
   console.log('  Press Ctrl-C to stop all processes.\n');
 
-  // Use npx concurrently — installed on demand if needed (it's in root package.json after setup)
   const args = [
+    'concurrently',
     '--kill-others-on-fail',
     '--prefix-colors', 'cyan,green,magenta',
     '--names', 'services,backend,frontend',
     '--prefix', '[{name}]',
-    // tfw-services dev
-    `cd "${TFW_SERVICES_DIR}" && npm run dev`,
-    // LibreChat backend dev
+    'npm --prefix tfw-services run dev',
     'npm run backend:dev',
-    // LibreChat frontend dev
     'npm run frontend:dev',
   ];
 
-  const proc = spawn('npx', ['concurrently', ...args], {
+  const proc = spawn('npx', args, {
     cwd: ROOT,
     stdio: 'inherit',
-    shell: true,
   });
 
   const forward = (sig) => proc.kill(sig);
