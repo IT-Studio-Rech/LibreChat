@@ -287,7 +287,7 @@ export default function Landing(_props: { centerFormOnLanding: boolean }) {
     >
       <div
         ref={contentRef}
-        className={`flex flex-col items-center gap-0 p-2 transition-all duration-700 ease-out motion-reduce:transition-none ${
+        className={`flex flex-col items-center gap-0 p-2 transition-[opacity,transform] duration-700 ease-out will-change-[opacity,transform] motion-reduce:transition-none ${
           showPromotedTiles
             ? 'pointer-events-none absolute inset-0 justify-center'
             : ''
