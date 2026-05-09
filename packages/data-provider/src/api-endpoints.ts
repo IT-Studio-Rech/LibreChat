@@ -425,6 +425,12 @@ export const updateMarketplacePermissions = (roleName: string) =>
   `${getRole(roleName)}/marketplace`;
 export const updateSkillPermissions = (roleName: string) => `${getRole(roleName)}/skills`;
 
+/* Bonus Codes */
+export const adminBonusCodes = () => `${BASE_URL}/api/admin/bonus-codes`;
+export const adminBonusCharges = () => `${BASE_URL}/api/admin/bonus-codes/charges`;
+export const adminBonusChargeDetails = (description: string) =>
+  `${BASE_URL}/api/admin/bonus-codes/charges/${encodeURIComponent(description)}`;
+
 /* Conversation Tags */
 export const conversationTags = (tag?: string) =>
   `${BASE_URL}/api/tags${tag != null && tag ? `/${encodeURIComponent(tag)}` : ''}`;

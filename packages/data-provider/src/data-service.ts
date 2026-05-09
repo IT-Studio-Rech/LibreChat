@@ -1278,3 +1278,18 @@ export interface ActiveJobsResponse {
 export const getActiveJobs = (): Promise<ActiveJobsResponse> => {
   return request.get(endpoints.activeJobs());
 };
+
+/* Bonus Codes */
+export function generateBonusCodes(
+  payload: q.GenerateBonusCodesParams,
+): Promise<q.GenerateBonusCodesResponse> {
+  return request.post(endpoints.adminBonusCodes(), payload);
+}
+
+export function getBonusCharges(): Promise<q.ChargeAggregate[]> {
+  return request.get(endpoints.adminBonusCharges());
+}
+
+export function getBonusChargeDetails(description: string): Promise<q.BonusCodeWithUser[]> {
+  return request.get(endpoints.adminBonusChargeDetails(description));
+}

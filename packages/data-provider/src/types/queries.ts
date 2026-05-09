@@ -227,3 +227,38 @@ export type GraphTokenResponse = {
   expires_in: number;
   scope: string;
 };
+
+/* Bonus Codes */
+export type GeneratedCode = {
+  code: string;
+  registration_url: string;
+};
+
+export type GenerateBonusCodesParams = {
+  count: number;
+  description: string;
+};
+
+export type GenerateBonusCodesResponse = {
+  codes: GeneratedCode[];
+};
+
+export type ChargeAggregate = {
+  description: string;
+  total: number;
+  used: number;
+  createdAt: string;
+};
+
+export type BonusCodeUser = {
+  _id: string;
+  email: string;
+  name?: string;
+};
+
+export type BonusCodeWithUser = {
+  code: string;
+  used: boolean;
+  usedBy: BonusCodeUser | null;
+  usedAt: string | null;
+};
