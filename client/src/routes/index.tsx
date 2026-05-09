@@ -11,6 +11,7 @@ import {
 import { MarketplaceProvider } from '~/components/Agents/MarketplaceContext';
 import AgentMarketplace from '~/components/Agents/Marketplace';
 import BonusCodes from '~/components/Admin/BonusCodes';
+import VaultUpload from '~/components/Admin/VaultUpload';
 import ProfileAvatar from '~/components/Profile/Avatar';
 import ProfileLeads from '~/components/Profile/Leads';
 import { OAuthSuccess, OAuthError } from '~/components/OAuth';
@@ -167,6 +168,10 @@ export const router = createBrowserRouter(
             {
               path: 'admin/bonus-codes',
               element: <BonusCodes />,
+            },
+            {
+              path: 'admin/vault-upload',
+              element: <VaultUpload />,
             },
             {
               path: 'profile/avatar',

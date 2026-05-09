@@ -1579,5 +1579,20 @@
   "com_tfw_profile_lead_action_delete": "Löschen",
   "com_tfw_profile_leads_created": "Lead angelegt",
   "com_tfw_profile_leads_updated": "Lead aktualisiert",
-  "com_user_message": "Du"
+  "com_user_message": "Du",
+  "com_tfw_vaultupload_title": "Vault-Upload",
+  "com_tfw_vaultupload_description": "Quell-Dokumente in den Wissens-Vault hochladen. Die Pipeline verarbeitet sie automatisch.",
+  "com_tfw_vaultupload_category_label": "Kategorie",
+  "com_tfw_vaultupload_category_nischenfindung": "Nischenfindung",
+  "com_tfw_vaultupload_category_angebot": "Angebot",
+  "com_tfw_vaultupload_category_sales": "Sales",
+  "com_tfw_vaultupload_category_webseite": "Webseite",
+  "com_tfw_vaultupload_dropzone": "Datei hierher ziehen oder klicken zum Auswählen",
+  "com_tfw_vaultupload_accepted": "Erlaubt: PDF, MD, TXT, DOCX, PNG, JPG",
+  "com_tfw_vaultupload_submit": "Hochladen und Pipeline starten",
+  "com_tfw_vaultupload_submitting": "Wird hochgeladen...",
+  "com_tfw_vaultupload_success": "Hochgeladen — Pipeline wurde automatisch gestartet (kann einige Minuten dauern)",
+  "com_tfw_vaultupload_error": "Upload fehlgeschlagen. Bitte erneut versuchen.",
+  "com_tfw_vaultupload_no_file": "Bitte zuerst eine Datei auswählen.",
+  "com_tfw_vaultupload_selected_file": "Ausgewählt: {{filename}}"
 }

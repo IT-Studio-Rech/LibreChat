@@ -6,6 +6,7 @@ import type {
   ChargeAggregate,
   GenerateBonusCodesParams,
   GenerateBonusCodesResponse,
+  VaultUploadResponse,
 } from 'librechat-data-provider';
 
 export const useGenerateBonusCodes = (options?: {
@@ -34,6 +35,17 @@ export const useChargesList = (): UseQueryResult<ChargeAggregate[]> => {
       retry: false,
     },
   );
+};
+
+export const useVaultUpload = (options?: {
+  onSuccess?: (data: VaultUploadResponse) => void;
+  onError?: (error: Error) => void;
+}): UseMutationResult<VaultUploadResponse, Error, { file: File; category: string }> => {
+  return useMutation([MutationKeys.vaultUpload], {
+    mutationFn: ({ file, category }) => dataService.uploadVaultFile(file, category),
+    onSuccess: (data) => options?.onSuccess?.(data),
+    onError: (error: Error) => options?.onError?.(error),
+  });
 };
 
 export const useChargeDetails = (

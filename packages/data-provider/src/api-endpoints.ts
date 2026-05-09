@@ -431,6 +431,9 @@ export const adminBonusCharges = () => `${BASE_URL}/api/admin/bonus-codes/charge
 export const adminBonusChargeDetails = (description: string) =>
   `${BASE_URL}/api/admin/bonus-codes/charges/${encodeURIComponent(description)}`;
 
+/* Vault Upload */
+export const adminVaultUpload = () => `${BASE_URL}/api/admin/vault/upload`;
+
 /* Conversation Tags */
 export const conversationTags = (tag?: string) =>
   `${BASE_URL}/api/tags${tag != null && tag ? `/${encodeURIComponent(tag)}` : ''}`;

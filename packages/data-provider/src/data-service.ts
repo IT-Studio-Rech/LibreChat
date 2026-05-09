@@ -1294,6 +1294,14 @@ export function getBonusChargeDetails(description: string): Promise<q.BonusCodeW
   return request.get(endpoints.adminBonusChargeDetails(description));
 }
 
+/* Vault Upload */
+export function uploadVaultFile(file: File, category: string): Promise<q.VaultUploadResponse> {
+  const formData = new FormData();
+  formData.append('file', file, file.name);
+  formData.append('category', category);
+  return request.postMultiPart(endpoints.adminVaultUpload(), formData);
+}
+
 /* Profile — ICP */
 export function getProfileICP(): Promise<q.ICPRecord> {
   return request.get(endpoints.profileICP());

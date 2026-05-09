@@ -126,6 +126,7 @@ export enum MutationKeys {
   deleteSkillNode = 'deleteSkillNode',
   updateSkillNodeContent = 'updateSkillNodeContent',
   generateBonusCodes = 'generateBonusCodes',
+  vaultUpload = 'vaultUpload',
   /* Profile mutations */
   updateProfileICP = 'updateProfileICP',
   createProfileLead = 'createProfileLead',

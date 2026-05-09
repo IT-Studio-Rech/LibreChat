@@ -263,6 +263,13 @@ export type BonusCodeWithUser = {
   usedAt: string | null;
 };
 
+/* Vault Upload */
+export type VaultUploadResponse = {
+  status: 'success';
+  path: string;
+  commit_url: string | null;
+};
+
 /* Profile — ICP */
 export type ICPRecord = {
   user_id: string;

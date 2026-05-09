@@ -1804,5 +1804,20 @@
   "com_tfw_profile_lead_action_delete": "Delete",
   "com_tfw_profile_leads_created": "Lead created",
   "com_tfw_profile_leads_updated": "Lead updated",
-  "com_user_message": "You"
+  "com_user_message": "You",
+  "com_tfw_vaultupload_title": "Vault Upload",
+  "com_tfw_vaultupload_description": "Upload source documents to the knowledge vault. The pipeline will process them automatically.",
+  "com_tfw_vaultupload_category_label": "Category",
+  "com_tfw_vaultupload_category_nischenfindung": "Nischenfindung",
+  "com_tfw_vaultupload_category_angebot": "Angebot",
+  "com_tfw_vaultupload_category_sales": "Sales",
+  "com_tfw_vaultupload_category_webseite": "Webseite",
+  "com_tfw_vaultupload_dropzone": "Drag & drop a file here, or click to select",
+  "com_tfw_vaultupload_accepted": "Accepted: PDF, MD, TXT, DOCX, PNG, JPG",
+  "com_tfw_vaultupload_submit": "Upload and start pipeline",
+  "com_tfw_vaultupload_submitting": "Uploading...",
+  "com_tfw_vaultupload_success": "Uploaded — pipeline started automatically (may take a few minutes)",
+  "com_tfw_vaultupload_error": "Upload failed. Please try again.",
+  "com_tfw_vaultupload_no_file": "Please select a file first.",
+  "com_tfw_vaultupload_selected_file": "Selected: {{filename}}"
 }
