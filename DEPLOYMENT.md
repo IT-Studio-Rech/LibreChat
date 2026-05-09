@@ -45,9 +45,9 @@ Both MCP servers are spawned via stdio — no HTTP ports are opened for them.
 | Component | Stack | Repo |
 |---|---|---|
 | LibreChat Fork | TypeScript, React, Node.js, Express | LibreChat (this repo) |
-| External Services | Express + TypeScript + Mongoose | the-female-way-services |
-| Vault MCP Server | TypeScript + lunr + chokidar | the-female-way-services/mcp-obsidian |
-| Puppeteer MCP Server | TypeScript + Puppeteer + Chromium | the-female-way-services/mcp-puppeteer |
+| External Services | Express + TypeScript + Mongoose | tfw-services |
+| Vault MCP Server | TypeScript + lunr + chokidar | tfw-services/mcp-obsidian |
+| Puppeteer MCP Server | TypeScript + Puppeteer + Chromium | tfw-services/mcp-puppeteer |
 | Database | MongoDB Atlas EU (Frankfurt) — not Supabase | external (see TECH-DECISIONS §3) |
 | File Storage | Firebase Storage europe-west1 | external |
 | LLM | Multi-provider: Anthropic / OpenAI / Google. MVP default: claude-sonnet-4-6 | API keys in .env |
@@ -111,7 +111,7 @@ VAULT_DEFAULT_BRANCH=main
 OFFICE_PREVIEW_LIBREOFFICE=/usr/bin/libreoffice
 ```
 
-### External Services (`the-female-way-services/.env`)
+### External Services (`tfw-services/.env`)
 
 ```dotenv
 PORT=3001
@@ -120,7 +120,7 @@ MONGO_URI=mongodb://localhost:27017/the-female-way
 TFW_SERVICES_SHARED_SECRET=<same value as LibreChat>
 ```
 
-### MCP Obsidian (`the-female-way-services/mcp-obsidian/.env` or inherited from parent)
+### MCP Obsidian (`tfw-services/mcp-obsidian/.env` or inherited from parent)
 
 ```dotenv
 VAULT_REPO_OWNER=
@@ -149,7 +149,7 @@ Memory and shm limits are set at the container level (see docker-compose.yml).
 
 ```bash
 # Terminal 1 — External Services
-cd ~/rechstudio/the-female-way-services
+cd ~/rechstudio/LibreChat/tfw-services
 cp .env.example .env
 # Edit .env: set MONGO_URI and TFW_SERVICES_SHARED_SECRET
 
@@ -177,7 +177,7 @@ npm run seed:agents         # requires an admin user to already be registered
 ### MCP Puppeteer (memory-intensive — run in container)
 
 ```bash
-cd ~/rechstudio/the-female-way-services
+cd ~/rechstudio/LibreChat/tfw-services
 docker-compose --profile mcp up mcp-puppeteer -d
 # Container name: tfw-puppeteer-mcp
 # LibreChat invokes it via: docker exec tfw-puppeteer-mcp node /app/dist/server.js
@@ -186,7 +186,7 @@ docker-compose --profile mcp up mcp-puppeteer -d
 ### MCP Obsidian (stdio child process — no container needed)
 
 ```bash
-cd ~/rechstudio/the-female-way-services/mcp-obsidian
+cd ~/rechstudio/LibreChat/tfw-services/mcp-obsidian
 npm install && npm run build
 # Register in librechat.yaml (see below) — LibreChat spawns it automatically.
 ```
@@ -203,7 +203,7 @@ mcpServers:
     type: stdio
     command: node
     args:
-      - /Users/<you>/rechstudio/the-female-way-services/mcp-obsidian/dist/server.js
+      - /Users/<you>/rechstudio/LibreChat/tfw-services/mcp-obsidian/dist/server.js
     env:
       VAULT_REPO_OWNER: ${VAULT_REPO_OWNER}
       VAULT_REPO_NAME: ${VAULT_REPO_NAME}
@@ -271,7 +271,7 @@ For Davi / Jonas when a demo date is scheduled. Shows Tara a full local run.
 **Preparation (15 min before)**
 
 1. Start Docker Desktop.
-2. In `the-female-way-services`: `docker-compose up` — wait for mongodb + services healthy.
+2. In `tfw-services`: `docker-compose up` — wait for mongodb + services healthy.
 3. Start Puppeteer container: `docker-compose --profile mcp up mcp-puppeteer -d`.
 4. In LibreChat: `npm run backend:dev` (Terminal 2), then `npm run frontend:dev` (Terminal 3).
 5. Confirm http://localhost:3090 loads without errors.

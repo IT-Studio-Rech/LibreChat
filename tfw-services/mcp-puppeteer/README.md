@@ -35,7 +35,7 @@ mcpServers:
     type: stdio
     command: node
     args:
-      - /path/to/the-female-way-services/mcp-puppeteer/dist/server.js
+      - /path/to/LibreChat/tfw-services/mcp-puppeteer/dist/server.js
     # No env vars required
 ```
 
