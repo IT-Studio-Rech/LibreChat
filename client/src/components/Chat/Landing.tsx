@@ -364,7 +364,7 @@ export default function Landing(_props: { centerFormOnLanding: boolean }) {
           }`}
         >
           <div className="mx-auto mb-6 max-w-2xl text-center">
-            <h2 className="font-serif text-3xl font-semibold text-text-headline mb-2 leading-tight sm:text-4xl">
+            <h2 className="font-serif text-2xl font-semibold text-text-headline mb-2 leading-tight sm:text-[28px] lg:text-[32px]">
               {greetingParts.before}
               <span className="italic text-brand-rose-dark">{userName || 'dir'}</span>
               {greetingParts.after}
