@@ -69,18 +69,18 @@ function PromotedTile({
   return (
     <button
       type="button"
-      className={`group relative flex cursor-pointer flex-col p-6 rounded-brand-lg border border-border-light bg-white text-left transition-all duration-200 hover:-translate-y-0.5 hover:shadow-brand-md hover:border-brand-rose animate-brand-slide-in opacity-0 motion-reduce:animate-none motion-reduce:opacity-100 ${delay}`}
+      className={`group relative flex cursor-pointer flex-col p-5 rounded-brand-lg border border-border-light bg-white text-left transition-all duration-200 hover:-translate-y-0.5 hover:shadow-brand-md hover:border-brand-rose animate-brand-slide-in opacity-0 motion-reduce:animate-none motion-reduce:opacity-100 ${delay}`}
       aria-label={ariaLabel}
       onClick={() => onSelect(agent.id)}
     >
-      <div className="h-11 w-11 rounded-[12px] bg-brand-rose-cream flex items-center justify-center mb-4 transition-colors group-hover:bg-brand-rose">
+      <div className="h-11 w-11 rounded-[12px] bg-brand-rose-cream flex items-center justify-center mb-3 transition-colors group-hover:bg-brand-rose">
         <Icon className="h-5 w-5 text-brand-rose-dark group-hover:text-white transition-colors stroke-[1.75]" />
       </div>
       <h3 className="font-serif text-xl font-semibold text-text-headline mb-2">
         {agent.name}
       </h3>
       {agent.description != null && agent.description !== '' && (
-        <p className="font-sans text-[13.5px] text-text-body leading-relaxed mb-4 line-clamp-3">
+        <p className="font-sans text-[13.5px] text-text-body leading-relaxed mb-3 line-clamp-2">
           {agent.description}
         </p>
       )}
@@ -94,8 +94,8 @@ function PromotedTile({
 
 function PromotedTileSkeleton() {
   return (
-    <div className="flex flex-col p-6 rounded-brand-lg border border-border-light bg-white">
-      <div className="h-11 w-11 animate-pulse rounded-[12px] bg-cream-light mb-4" />
+    <div className="flex flex-col p-5 rounded-brand-lg border border-border-light bg-white">
+      <div className="h-11 w-11 animate-pulse rounded-[12px] bg-cream-light mb-3" />
       <div className="h-5 w-3/4 animate-pulse rounded-brand-sm bg-cream-light mb-2" />
       <div className="h-12 w-full animate-pulse rounded-brand-sm bg-cream-light" />
     </div>
@@ -283,7 +283,7 @@ export default function Landing({ centerFormOnLanding }: { centerFormOnLanding: 
 
   return (
     <div
-      className={`relative flex h-full transform-gpu flex-col items-center justify-center pb-16 transition-all duration-200 ${collapseToInput ? 'max-h-full sm:max-h-0' : 'max-h-full'} ${getDynamicMargin}`}
+      className={`relative flex h-full transform-gpu flex-col items-center justify-center pb-8 transition-all duration-200 ${collapseToInput ? 'max-h-full sm:max-h-0' : 'max-h-full'} ${getDynamicMargin}`}
     >
       <div
         ref={contentRef}
@@ -363,8 +363,8 @@ export default function Landing({ centerFormOnLanding }: { centerFormOnLanding: 
             tilesReady ? 'opacity-100' : 'pointer-events-none opacity-0'
           }`}
         >
-          <div className="mx-auto mb-12 max-w-[580px] text-center">
-            <h2 className="font-serif text-4xl font-semibold text-text-headline mb-3 leading-tight">
+          <div className="mx-auto mb-8 max-w-[580px] text-center">
+            <h2 className="font-serif text-3xl font-semibold text-text-headline mb-2 leading-tight sm:text-4xl">
               {greetingParts.before}
               <span className="italic text-brand-rose-dark">{userName || 'dir'}</span>
               {greetingParts.after}
