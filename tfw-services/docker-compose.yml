@@ -1,0 +1,18 @@
+services:
+  mongodb:
+    image: mongo:7
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  services:
+    build: .
+    ports:
+      - "3001:3001"
+    env_file: .env
+    depends_on:
+      - mongodb
+
+volumes:
+  mongo-data:
