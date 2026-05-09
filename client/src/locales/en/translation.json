@@ -1752,5 +1752,10 @@
   "com_tfw_landing_tile_aria": "Start conversation with {{name}}",
   "com_tfw_landing_tile_cta": "Start",
   "com_tfw_landing_loading": "Loading assistants ...",
+  "com_tfw_sidebar_section_profile": "My Profile",
+  "com_tfw_sidebar_item_avatar": "My Customer Avatar",
+  "com_tfw_sidebar_item_leads": "My Leads",
+  "com_tfw_sidebar_section_agents": "Assistants",
+  "com_tfw_sidebar_agent_start": "Start conversation with {{name}}",
   "com_user_message": "You"
 }

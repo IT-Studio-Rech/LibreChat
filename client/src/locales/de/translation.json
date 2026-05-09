@@ -1526,5 +1526,10 @@
   "com_tfw_bonus_codes_status_open": "Offen",
   "com_tfw_bonus_codes_loading": "Lädt...",
   "com_tfw_bonus_codes_error": "Ein Fehler ist aufgetreten. Bitte erneut versuchen.",
+  "com_tfw_sidebar_section_profile": "Mein Profil",
+  "com_tfw_sidebar_item_avatar": "Mein Kundenavatar",
+  "com_tfw_sidebar_item_leads": "Meine Leads",
+  "com_tfw_sidebar_section_agents": "Assistenten",
+  "com_tfw_sidebar_agent_start": "Gespräch mit {{name}} starten",
   "com_user_message": "Du"
 }

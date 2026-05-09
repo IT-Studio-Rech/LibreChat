@@ -15,6 +15,8 @@ import {
 import { useConversationsInfiniteQuery, useTitleGeneration } from '~/data-provider';
 import { Conversations } from '~/components/Conversations';
 import SearchBar from '~/components/Nav/SearchBar';
+import AssistantsSection from './AssistantsSection';
+import ProfileSection from './ProfileSection';
 import store from '~/store';
 
 const BookmarkNav = lazy(() => import('~/components/Nav/Bookmarks/BookmarkNav'));
@@ -108,6 +110,9 @@ const ConversationsSection = memo(() => {
       role="region"
       aria-label={localize('com_ui_chat_history')}
     >
+      <ProfileSection />
+      <AssistantsSection />
+      <div className="mx-3 my-1 border-b border-border-light" />
       <div className="flex items-center gap-0.5 px-3">
         {hasAccessToBookmarks && (
           <Suspense fallback={null}>
