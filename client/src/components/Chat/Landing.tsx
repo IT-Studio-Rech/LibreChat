@@ -283,12 +283,16 @@ export default function Landing({ centerFormOnLanding }: { centerFormOnLanding: 
 
   return (
     <div
-      className={`flex h-full transform-gpu flex-col items-center justify-center pb-16 transition-all duration-200 ${collapseToInput ? 'max-h-full sm:max-h-0' : 'max-h-full'} ${getDynamicMargin}`}
+      className={`relative flex h-full transform-gpu flex-col items-center justify-center pb-16 transition-all duration-200 ${collapseToInput ? 'max-h-full sm:max-h-0' : 'max-h-full'} ${getDynamicMargin}`}
     >
       <div
         ref={contentRef}
-        className={`flex flex-col items-center gap-0 p-2 transition-opacity duration-500 motion-reduce:transition-none ${
-          showPromotedTiles && tilesReady ? 'pointer-events-none absolute opacity-0' : 'opacity-100'
+        className={`flex flex-col items-center gap-0 p-2 transition-all duration-700 ease-out motion-reduce:transition-none ${
+          showPromotedTiles
+            ? 'pointer-events-none absolute inset-0 justify-center'
+            : ''
+        } ${
+          showPromotedTiles && tilesReady ? 'opacity-0 -translate-y-12' : 'opacity-100 translate-y-0'
         }`}
       >
         <div
@@ -356,7 +360,7 @@ export default function Landing({ centerFormOnLanding }: { centerFormOnLanding: 
       {showPromotedTiles && (
         <div
           className={`mt-6 w-full max-w-3xl px-2 transition-opacity duration-700 motion-reduce:transition-none ${
-            tilesReady ? 'opacity-100' : 'pointer-events-none absolute opacity-0'
+            tilesReady ? 'opacity-100' : 'pointer-events-none opacity-0'
           }`}
         >
           <div className="mx-auto mb-12 max-w-[580px] text-center">
