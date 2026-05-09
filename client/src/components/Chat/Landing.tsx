@@ -262,11 +262,18 @@ export default function Landing({ centerFormOnLanding }: { centerFormOnLanding: 
     };
   }, [localize]);
 
+  // TFW: when promoted tiles are visible, never collapse the landing container —
+  // the LibreChat default centerFormOnLanding behaviour pins max-h to 0 on sm+ so
+  // the input chip floats centered, but that throws our tile grid off-screen.
+  const collapseToInput = centerFormOnLanding && !showPromotedTiles;
   return (
     <div
-      className={`flex h-full transform-gpu flex-col items-center justify-center pb-16 transition-all duration-200 ${centerFormOnLanding ? 'max-h-full sm:max-h-0' : 'max-h-full'} ${getDynamicMargin}`}
+      className={`flex h-full transform-gpu flex-col items-center justify-center pb-16 transition-all duration-200 ${collapseToInput ? 'max-h-full sm:max-h-0' : 'max-h-full'} ${getDynamicMargin}`}
     >
-      <div ref={contentRef} className="flex flex-col items-center gap-0 p-2">
+      <div
+        ref={contentRef}
+        className={`flex flex-col items-center gap-0 p-2 ${showPromotedTiles ? 'hidden' : ''}`}
+      >
         <div
           className={`flex ${textHasMultipleLines ? 'flex-col' : 'flex-col md:flex-row'} items-center justify-center gap-2`}
         >
