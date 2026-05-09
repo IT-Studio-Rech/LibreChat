@@ -5,6 +5,12 @@ services:
       - "27017:27017"
     volumes:
       - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
 
   services:
     build: .
@@ -12,7 +18,41 @@ services:
       - "3001:3001"
     env_file: .env
     depends_on:
-      - mongodb
+      mongodb:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3001/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+  # MCP Puppeteer — runs as a container because Chromium is memory-intensive.
+  # LibreChat invokes it via stdio: docker exec tfw-puppeteer-mcp node /app/dist/server.js
+  # Start this container independently; it does not need to be part of the compose network.
+  mcp-puppeteer:
+    build: ./mcp-puppeteer
+    container_name: tfw-puppeteer-mcp
+    restart: unless-stopped
+    mem_limit: 1g
+    shm_size: 256m
+    # No ports exposed — LibreChat communicates via stdio (docker exec), not HTTP.
+    profiles:
+      - mcp
+
+  # MCP Obsidian Vault — normally started as a child process by LibreChat via stdio.
+  # Uncomment only when testing the SSE-transport variant or debugging in isolation.
+  # For standard use, register in librechat.yaml mcpServers and let LibreChat spawn it.
+  #
+  # mcp-obsidian:
+  #   build: ./mcp-obsidian
+  #   container_name: tfw-obsidian-mcp
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ./vault-clone:/vault
+  #   env_file: ./mcp-obsidian/.env
+  #   profiles:
+  #     - mcp-sse
 
 volumes:
   mongo-data:
