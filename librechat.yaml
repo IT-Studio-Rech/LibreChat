@@ -30,6 +30,13 @@ interface:
     use: false
   skills:
     use: false
+  # Users can use the MCP servers we configure (Wiki, Webseiten-Feedback)
+  # but cannot add or change MCP server settings themselves
+  mcpServers:
+    use: true
+    create: false
+    share: false
+    public: false
   customFooter: "The Female Way © 2026"
 
 modelSpecs:

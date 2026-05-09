@@ -132,7 +132,7 @@ export default function ProfileLeads() {
   const closeMenu = useCallback(() => setMenu(null), []);
 
   return (
-    <main className="mx-auto max-w-5xl px-4 py-8" onClick={closeMenu}>
+    <main className="mx-auto max-w-3xl px-4 py-8" onClick={closeMenu}>
       {/* Header */}
       <div className="mb-6 flex items-center justify-between">
         <h1 className="font-serif text-h3 font-semibold text-text-headline">
